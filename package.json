@@ -1,0 +1,16 @@
+{
+  "name": "cursor-cat",
+  "version": "1.0.0",
+  "description": "A cat that chases your real mouse cursor across your actual desktop.",
+  "main": "dist/main.js",
+  "scripts": {
+    "build": "tsc -p tsconfig.json && tsc -p tsconfig.renderer.json",
+    "start": "npm run build && electron ."
+  },
+  "devDependencies": {
+    "@types/node": "^22.20.4",
+    "electron": "^44.5.1",
+    "typescript": "^7.0.2"
+  },
+  "private": true
+}

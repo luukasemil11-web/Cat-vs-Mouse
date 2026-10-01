@@ -49,7 +49,7 @@ cd Cat-vs-Mouse && npm install && npm start
 ## Make a new release
 
 1. Bump `"version"` in `package.json` and commit.
-2. Tag it and push the tag: `git tag v1.0.1 && git push origin v1.0.1`
+2. On GitHub, go to **Actions → Release → Run workflow**. (Pushing a tag like `v1.0.1` works too.)
 3. GitHub Actions builds the Mac, Windows and Linux apps and publishes them on the Releases page (about 5–10 minutes).
 
 To build locally instead: `npm run dist` (outputs to `release/`). The app icon is drawn by `node scripts/make-icon.mjs`.

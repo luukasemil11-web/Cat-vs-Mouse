@@ -1,7 +1,8 @@
 name: Release
 
-# Push a tag like v1.0.1 to build the apps and publish them on the Releases page.
-# "Run workflow" from the Actions tab builds them as downloadable artifacts without releasing.
+# Builds the Mac, Windows and Linux apps and publishes them as a GitHub release
+# tagged v<version from package.json>. Start it from Actions → Release → Run workflow,
+# or by pushing a tag like v1.0.1.
 on:
   push:
     tags: ['v*']
@@ -41,17 +42,21 @@ jobs:
           if-no-files-found: error
 
   release:
-    if: startsWith(github.ref, 'refs/tags/v')
     needs: build
     runs-on: ubuntu-latest
     permissions:
       contents: write
     steps:
+      - uses: actions/checkout@v5
+      - id: version
+        run: echo "tag=v$(node -p "require('./package.json').version")" >> "$GITHUB_OUTPUT"
       - uses: actions/download-artifact@v5
         with:
           path: out
           merge-multiple: true
       - uses: softprops/action-gh-release@v2
         with:
+          tag_name: ${{ steps.version.outputs.tag }}
+          target_commitish: ${{ github.sha }}
           files: out/*
           generate_release_notes: true

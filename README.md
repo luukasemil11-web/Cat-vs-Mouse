@@ -5,7 +5,7 @@ A cat-and-mouse game where **you are the mouse** and the mouse is your real curs
 ## Play
 
 ```bash
-cd cursor-cat
+cd Cat-vs-Mouse
 npm install
 npm start
 ```

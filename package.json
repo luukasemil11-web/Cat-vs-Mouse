@@ -1,16 +1,80 @@
 {
-  "name": "cursor-cat",
+  "name": "cat-vs-mouse",
   "version": "1.0.0",
   "description": "A cat that chases your real mouse cursor across your actual desktop.",
   "main": "dist/main.js",
   "scripts": {
     "build": "tsc -p tsconfig.json && tsc -p tsconfig.renderer.json",
-    "start": "npm run build && electron ."
+    "start": "npm run build && electron .",
+    "dist": "npm run build && electron-builder --publish never",
+    "dist:mac": "npm run build && electron-builder --mac --publish never"
   },
   "devDependencies": {
     "@types/node": "^22.20.4",
     "electron": "^44.5.1",
+    "electron-builder": "^26.15.3",
     "typescript": "^7.0.2"
   },
-  "private": true
+  "private": true,
+  "productName": "Cat vs Mouse",
+  "author": "luukasemil11-web",
+  "repository": "github:luukasemil11-web/Cat-vs-Mouse",
+  "build": {
+    "appId": "io.github.luukasemil11-web.catvsmouse",
+    "productName": "Cat vs Mouse",
+    "artifactName": "Cat-vs-Mouse-${version}-${os}-${arch}.${ext}",
+    "directories": {
+      "output": "release",
+      "buildResources": "build"
+    },
+    "files": [
+      "dist/**/*",
+      "static/**/*",
+      "package.json"
+    ],
+    "mac": {
+      "target": [
+        {
+          "target": "dmg",
+          "arch": [
+            "universal"
+          ]
+        }
+      ],
+      "category": "public.app-category.games",
+      "identity": "-",
+      "hardenedRuntime": false,
+      "extendInfo": {
+        "LSUIElement": true
+      }
+    },
+    "dmg": {
+      "title": "Cat vs Mouse"
+    },
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    },
+    "nsis": {
+      "oneClick": true,
+      "perMachine": false
+    },
+    "linux": {
+      "target": [
+        {
+          "target": "AppImage",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "category": "Game"
+    }
+  }
 }

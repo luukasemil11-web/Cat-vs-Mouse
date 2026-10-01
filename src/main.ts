@@ -127,13 +127,14 @@ function catIcon() {
 			else if (head || ears) buf.set([97, 162, 244, 255], i) // BGRA orange
 		}
 	}
-	return nativeImage.createFromBitmap(buf, { width: size, height: size })
+	// scaleFactor 2: a crisp 16pt icon on Retina menu bars instead of a blurry 32pt one
+	return nativeImage.createFromBitmap(buf, { width: size, height: size, scaleFactor: 2 })
 }
 
 function buildTray() {
 	try {
 		tray = new Tray(catIcon())
-		tray.setToolTip('Cursor Cat')
+		tray.setToolTip('Cat vs Mouse')
 		tray.setContextMenu(
 			Menu.buildFromTemplate([
 				{ label: 'Pause / resume', click: () => game.togglePause() },
